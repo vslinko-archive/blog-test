@@ -1,0 +1,16 @@
+!!! 5
+html(lang="en")
+  head
+    meta(charset="utf8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    title My Blog
+    meta(name="description", content="My Blog")
+    meta(name="viewport", content="width=device-width")
+    // build:css styles/screen.css
+    link(rel="stylesheet", href="styles/screen.css")
+    // endbuild
+    // build:js scripts/main.js
+    script(data-main="scripts/main", src="bower_components/requirejs/require.js")
+    // endbuild
+  body
+    h1 My Blog
