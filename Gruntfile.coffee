@@ -80,6 +80,7 @@ module.exports = (grunt) ->
             dest: "dist"
             src: [
               "*.{ico,png,txt}"
+              "bower_components/bootstrap/dist/css/bootstrap.css"
               "bower_components/requirejs/require.js"
               "images/{,*/}*.{webp,gif}"
               "styles/fonts/*"
@@ -214,6 +215,7 @@ module.exports = (grunt) ->
     "copy"
     "useminPrepare"
     "requirejs"
+    "concat"
     "uglify"
     "rev"
     "usemin"

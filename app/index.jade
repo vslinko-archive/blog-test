@@ -7,10 +7,19 @@ html(lang="en")
     meta(name="description", content="My Blog")
     meta(name="viewport", content="width=device-width")
     // build:css styles/screen.css
+    link(rel="stylesheet", href="bower_components/bootstrap/dist/css/bootstrap.css")
     link(rel="stylesheet", href="styles/screen.css")
     // endbuild
     // build:js scripts/main.js
     script(data-main="scripts/main", src="bower_components/requirejs/require.js")
     // endbuild
   body
-    h1 My Blog
+    .container
+      .navbar
+        a.navbar-brand(href="#!/") My Blog
+        ul.nav.navbar-nav
+          li
+            a(href="#!/") Main Page
+          li
+            a(href="#!/posts") All Posts
+      #content

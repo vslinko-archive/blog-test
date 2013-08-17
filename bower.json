@@ -2,8 +2,12 @@
   "name": "blog",
   "version": "0.1.0",
   "dependencies": {
+    "bootstrap": "~3.0",
     "requirejs": "~2.1",
     "modernizr": "~2.6",
-    "jquery": "~1.9"
+    "jquery": "~1.9",
+    "underscore": "~1.5",
+    "backbone": "~1.0",
+    "react": "~0.4"
   }
 }
