@@ -1,13 +1,4 @@
 loadGruntTasks = require "load-grunt-tasks"
-livereload = require "connect-livereload"
-path = require "path"
-
-
-LIVERELOAD_PORT = 35729
-
-
-mountFolder = (connect, dir) ->
-  connect.static path.resolve(dir)
 
 
 module.exports = (grunt) ->
@@ -144,24 +135,21 @@ module.exports = (grunt) ->
           dest: "dist"
           src: ["{,*/}*.html"]
         ]
-    connect:
+    express:
       options:
-        port: 3000
         hostname: "0.0.0.0"
       livereload:
         options:
-          middleware: (connect) ->
-            [
-              livereload port: LIVERELOAD_PORT
-              mountFolder connect, ".tmp"
-              mountFolder connect, "app"
-            ]
+          bases: [
+            ".tmp"
+            "app"
+          ]
+          server: "backend"
+          livereload: true
       dist:
         options:
-          middleware: (connect) ->
-            [
-              mountFolder connect, "dist"
-            ]
+          bases: "dist"
+          server: "backend"
     watch:
       jade:
         files: ["app/{,*/}*.jade"]
@@ -172,15 +160,6 @@ module.exports = (grunt) ->
       coffee:
         files: ["app/scripts/{,*/}*.coffee"]
         tasks: ["coffee"]
-      livereload:
-        options:
-          livereload: LIVERELOAD_PORT
-        files: [
-          ".tmp/{,*/}*.html"
-          ".tmp/styles/{,*/}*.css"
-          ".tmp/scripts/{,*/}*.js"
-          "app/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}"
-        ]
     concurrent:
       server: [
         "jade"
@@ -199,13 +178,13 @@ module.exports = (grunt) ->
     if target is "dist"
       grunt.task.run [
         "build"
-        "connect:dist:keepalive"
+        "express-keepalive:dist"
       ]
     else
       grunt.task.run [
         "clean:server"
         "concurrent:server"
-        "connect:livereload"
+        "express:livereload"
         "watch"
       ]
 
