@@ -3,7 +3,8 @@ define [
   "react"
   "components/main-page"
   "components/posts-page"
-], (Backbone, React, MainPage, PostsPage) ->
+  "components/post-page"
+], (Backbone, React, MainPage, PostsPage, PostPage) ->
   contentNode = document.getElementById "content"
 
   renderPage = (Page, attributeNames = []) ->
@@ -17,5 +18,6 @@ define [
     routes:
       "!/": renderPage MainPage
       "!/posts": renderPage PostsPage
+      "!/posts/:id": renderPage PostPage, ["_id"]
 
   new Router

@@ -1,2 +1,3 @@
 define ["backbone"], (Backbone) ->
-  Backbone.Model.extend()
+  Backbone.Model.extend
+    idAttribute: "_id"
