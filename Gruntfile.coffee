@@ -5,8 +5,8 @@ module.exports = (grunt) ->
   loadGruntTasks grunt
 
   yeomanConfig =
-    app: "app"
-    dist: "dist"
+    app: "frontend"
+    dist: "build/frontend"
 
   grunt.initConfig
     yeoman: yeomanConfig

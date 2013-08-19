@@ -1,5 +1,5 @@
 .*\.swp
 /.tmp/
-/app/bower_components/
-/dist/
+/frontend/bower_components/
+/build/
 /node_modules/
