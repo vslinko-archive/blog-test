@@ -221,6 +221,7 @@ module.exports = (grunt) ->
     "useminPrepare"
     "requirejs"
     "concat"
+    "cssmin"
     "uglify"
     "rev"
     "usemin"
