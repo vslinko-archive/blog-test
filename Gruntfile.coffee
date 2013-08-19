@@ -4,15 +4,20 @@ loadGruntTasks = require "load-grunt-tasks"
 module.exports = (grunt) ->
   loadGruntTasks grunt
 
+  yeomanConfig =
+    app: "app"
+    dist: "dist"
+
   grunt.initConfig
+    yeoman: yeomanConfig
     clean:
       dist:
         files: [
           dot: true
           src: [
             ".tmp"
-            "dist/*"
-            "!dist/.git*"
+            "<%= yeoman.dist %>/*"
+            "!<%= yeoman.dist %>/.git*"
           ]
         ]
       server: ".tmp"
@@ -22,7 +27,7 @@ module.exports = (grunt) ->
       dist:
         files: [
           expand: true
-          cwd: "app"
+          cwd: "<%= yeoman.app %>"
           src: "{,*/}*.jade"
           dest: ".tmp"
           ext: ".html"
@@ -31,7 +36,7 @@ module.exports = (grunt) ->
       dist:
         files: [
           expand: true
-          cwd: "app/styles"
+          cwd: "<%= yeoman.app %>/styles"
           src: "{,*/}*.styl"
           dest: ".tmp/styles"
           ext: ".css"
@@ -40,7 +45,7 @@ module.exports = (grunt) ->
       dist:
         files: [
           expand: true
-          cwd: "app/scripts"
+          cwd: "<%= yeoman.app %>/scripts"
           src: "{,*/}*.coffee"
           dest: ".tmp/scripts"
           ext: ".js"
@@ -49,17 +54,17 @@ module.exports = (grunt) ->
       dist:
         files: [
           expand: true
-          cwd: "app/images"
+          cwd: "<%= yeoman.app %>/images"
           src: "{,*/}*.{png,jpg,jpeg}"
-          dest: "dist/images"
+          dest: "<%= yeoman.dist %>/images"
         ]
     svgmin:
       dist:
         files: [
           expand: true
-          cwd: "app/images"
+          cwd: "<%= yeoman.app %>/images"
           src: "{,*/}*.svg"
-          dest: "dist/images"
+          dest: "<%= yeoman.dist %>/images"
         ]
     copy:
       dist:
@@ -67,8 +72,8 @@ module.exports = (grunt) ->
           {
             expand: true
             dot: true
-            cwd: "app"
-            dest: "dist"
+            cwd: "<%= yeoman.app %>"
+            dest: "<%= yeoman.dist %>"
             src: [
               "*.{ico,png,txt}"
               "bower_components/bootstrap/dist/css/bootstrap.css"
@@ -81,7 +86,7 @@ module.exports = (grunt) ->
             expand: true
             dot: true
             cwd: ".tmp"
-            dest: "dist"
+            dest: "<%= yeoman.dist %>"
             src: [
               "{,*/}*.html"
               "styles/{,*/}*.css"
@@ -92,14 +97,14 @@ module.exports = (grunt) ->
         files: [
           expand: true
           dot: true
-          cwd: "app/bower_components"
+          cwd: "<%= yeoman.app %>/bower_components"
           dest: ".tmp/bower_components"
           src: ["**"]
         ]
     useminPrepare:
       options:
-        dest: "dist"
-      html: "dist/index.html"
+        dest: "<%= yeoman.dist %>"
+      html: "<%= yeoman.dist %>/index.html"
     requirejs:
       dist:
         options:
@@ -111,16 +116,16 @@ module.exports = (grunt) ->
       dist:
         files:
           src: [
-            "dist/scripts/{,*/}*.js"
-            "dist/styles/{,*/}*.css"
-            "dist/images/{,*/}*.{png,jpg,jpeg,gif,webp}"
-            "dist/styles/fonts/*"
+            "<%= yeoman.dist %>/scripts/{,*/}*.js"
+            "<%= yeoman.dist %>/styles/{,*/}*.css"
+            "<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}"
+            "<%= yeoman.dist %>/styles/fonts/*"
           ]
     usemin:
       options:
-        dirs: ["dist"]
-      html: ["dist/{,*/}*.html"],
-      css: ["dist/styles/{,*/}*.css"]
+        dirs: ["<%= yeoman.dist %>"]
+      html: ["<%= yeoman.dist %>/{,*/}*.html"],
+      css: ["<%= yeoman.dist %>/styles/{,*/}*.css"]
     htmlmin:
       options:
         removeComments: true
@@ -131,8 +136,8 @@ module.exports = (grunt) ->
       dist:
         files: [
           expand: true
-          cwd: "dist"
-          dest: "dist"
+          cwd: "<%= yeoman.dist %>"
+          dest: "<%= yeoman.dist %>"
           src: ["{,*/}*.html"]
         ]
     express:
@@ -142,23 +147,23 @@ module.exports = (grunt) ->
         options:
           bases: [
             ".tmp"
-            "app"
+            "<%= yeoman.app %>"
           ]
           server: "backend"
           livereload: true
       dist:
         options:
-          bases: "dist"
+          bases: "<%= yeoman.dist %>"
           server: "backend"
     watch:
       jade:
-        files: ["app/{,*/}*.jade"]
+        files: ["<%= yeoman.app %>/{,*/}*.jade"]
         tasks: ["jade"]
       stylus:
-        files: ["app/styles/{,*/}*.styl"]
+        files: ["<%= yeoman.app %>/styles/{,*/}*.styl"]
         tasks: ["stylus"]
       coffee:
-        files: ["app/scripts/{,*/}*.coffee"]
+        files: ["<%= yeoman.app %>/scripts/{,*/}*.coffee"]
         tasks: ["coffee"]
     concurrent:
       server: [
