@@ -1,6 +1,9 @@
 express = require "express"
+path = require "path"
 
 module.exports = app = express()
+
+app.use express.static path.resolve path.join __dirname, "..", "frontend"
 
 app.get "/posts", (req, res) ->
   postsArray = []
