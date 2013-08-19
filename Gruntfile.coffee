@@ -1,10 +1,14 @@
 loadGruntTasks = require "load-grunt-tasks"
+pkg = require "./package.json"
 
 
 module.exports = (grunt) ->
   loadGruntTasks grunt
 
+  nodeModules = ("node_modules/#{m}/**/*" for m, v of pkg.dependencies)
+
   yeomanConfig =
+    dist: "build"
     frontend:
       app: "frontend"
       dist: "build/frontend"
@@ -20,11 +24,15 @@ module.exports = (grunt) ->
           dot: true
           src: [
             ".tmp"
-            "<%= yeoman.frontend.dist %>/*"
-            "!<%= yeoman.frontend.dist %>/.git*"
+            "<%= yeoman.dist %>/*"
+            "!<%= yeoman.dist %>/.git*"
           ]
         ]
       server: ".tmp"
+      build: [
+        "<%= yeoman.frontend.dist %>/bower_components/*"
+        "!<%= yeoman.frontend.dist %>/bower_components/requirejs*"
+      ]
     jade:
       options:
         pretty: true
@@ -119,9 +127,7 @@ module.exports = (grunt) ->
           dot: true
           cwd: "."
           dest: "<%= yeoman.backend.dist %>"
-          src: [
-            "node_modules/**/*"
-          ]
+          src: nodeModules
         ]
     useminPrepare:
       options:
@@ -226,6 +232,7 @@ module.exports = (grunt) ->
     "rev"
     "usemin"
     "htmlmin"
+    "clean:build"
   ]
 
   grunt.registerTask "default", [
