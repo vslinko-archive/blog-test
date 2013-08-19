@@ -174,8 +174,7 @@ module.exports = (grunt) ->
           livereload: true
       dist:
         options:
-          bases: "<%= yeoman.frontend.dist %>"
-          server: "backend"
+          server: "<%= yeoman.backend.dist %>"
     watch:
       jade:
         files: ["<%= yeoman.frontend.app %>/{,*/}*.jade"]
@@ -204,6 +203,7 @@ module.exports = (grunt) ->
     if target is "dist"
       grunt.task.run [
         "build"
+        "express:dist"
         "express-keepalive:dist"
       ]
     else
